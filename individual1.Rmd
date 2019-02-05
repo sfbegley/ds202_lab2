@@ -1,0 +1,29 @@
+---
+title: "Lab 2"
+author: "Sam Begley"
+date: "February 5, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+```
+  
+  
+```{r 1}
+choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
+head(choco)
+hist(choco$Rating, main = 'Histogram of Chocolate Ratings', xlab = 'Rating', xlim = c(min(choco$Rating), max(choco$Rating)), las = 1)
+```
+  
+  The Histogram is centered Between 3 - 3.5. The histogram is left-skewed, since there are more values left of the mean than right of the mean. I wouldn't consider any of these results to be outliers, since they all are rated within the same 5-point scale. 
+  
+  
+```{r Cocoa}
+plot(choco$Rating, choco$Cocoa.Pct, xlim = c(min(choco$Rating), max(choco$Rating)), ylim = c(min(choco$Cocoa.Pct), max(choco$Cocoa.Pct)), xlab = 'Chocolate Rating', ylab = 'Cocoa %')
+```
+  
+  
+From this scatter plot, there doesn't appear to be any significant correlation between Cocoa Percentage and Rating. It is worth noting, however, that the chocolates which were rated greater than 3.5 were all closely grouped around 70% cocoa percentage. All chocolates with significantly more or less than 70% cocoa were rated less than 3.5
