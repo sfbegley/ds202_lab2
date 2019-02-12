@@ -1,0 +1,56 @@
+---
+title: "Team"
+author: "Sam Begley"
+date: "February 5, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+```
+  
+  #1) 1,852 Chocolate bars were rated
+  
+  
+```{r}
+choco <- read.csv("https://xdaiisu.github.io/ds202materials/hwlabs/choco.csv")
+dim(choco)
+```
+  
+  #2) 
+  
+  
+```{r}
+barplot(count(choco, Review.Date)$n, count(choco, Review.Date)$Review.Date, main = 'Chocolate Bar Reviews Over Time', xlab = 'Review Date', ylab = 'Number of Reviews', names.arg = count(choco, Review.Date)$Review.Date)
+```
+  
+  There were more reviews written towards the end of the data collection period. From 2006 to 2015, there was a distinct increase in the number of reviews written per year. After 2015, the reviews dropped off, and were lower in 2016 and 2017.
+  
+  #3)
+  
+```{r}
+choco$id <- 1:1852
+top_n(summarise(group_by(choco, Company.Location), count = n_distinct(id)), 5, count)
+summarise(group_by(filter(choco, Company.Location == c('Canada', 'France', 'Italy', 'U.K.', 'U.S.A.')), Company.Location), avg = mean(Rating))
+```
+  
+  The top 5 countries were Canada, France, Italy, U.K., and U.S.A. Canada had the highest average rating, while U.K. had the lowest. The other 3 countries had an average rank of between 3.10 and 3.17.
+  
+  
+#4)  
+  
+  
+"What company makes the best chocolate based on the ratings in this list?"
+  
+  
+#5)
+  
+  
+```{r}
+top_n(summarise(group_by(choco, Company), avg = mean(Rating)), 5, avg)
+```
+  
+  
+Tobago Estate was the best, with an average rank of 4.0. Ocelot and Heirloom Cacao Preservation were the second best with average rankings of 3.875, but Amedei and Matale were not far behind, with averages of over 3.8.
